@@ -2,12 +2,13 @@
 body {
     font-family: 'Inter', sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave para modo noturno */
+    color: #1a202c; /* Cor do texto padrão para o modo claro */
 }
 
 /* Modo Noturno */
 body.dark-mode {
     background-color: #1a202c; /* Cor de fundo escura */
-    color: #e2e8f0; /* Cor do texto clara */
+    color: #e2e8f0; /* Cor do texto clara para o modo noturno */
 }
 
 body.dark-mode .bg-white {
@@ -25,13 +26,14 @@ body.dark-mode .bg-gray-100 {
     color: #e2e8f0;
 }
 
-body.dark-mode .text-gray-800 {
+/* Não é mais necessário, já que a regra no body.dark-mode é mais abrangente */
+/* body.dark-mode .text-gray-800 {
     color: #e2e8f0;
 }
 
 body.dark-mode .text-gray-600 {
     color: #cbd5e0;
-}
+} */
 
 body.dark-mode .border {
     border-color: #4a5568;
