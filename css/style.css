@@ -1,0 +1,80 @@
+/* Estilos globais */
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave para modo noturno */
+}
+
+/* Modo Noturno */
+body.dark-mode {
+    background-color: #1a202c; /* Cor de fundo escura */
+    color: #e2e8f0; /* Cor do texto clara */
+}
+
+body.dark-mode .bg-white {
+    background-color: #2d3748; /* Fundo de cards escuro */
+    color: #e2e8f0;
+}
+
+body.dark-mode .bg-gray-50 {
+    background-color: #4a5568; /* Fundo de dias do calendário/inputs escuro */
+    color: #e2e8f0;
+}
+
+body.dark-mode .bg-gray-100 {
+    background-color: #2d3748; /* Fundo de listas escuro */
+    color: #e2e8f0;
+}
+
+body.dark-mode .text-gray-800 {
+    color: #e2e8f0;
+}
+
+body.dark-mode .text-gray-600 {
+    color: #cbd5e0;
+}
+
+body.dark-mode .border {
+    border-color: #4a5568;
+}
+
+/* Estilos para os dias do calendário */
+.calendar-day {
+    min-width: 80px;
+    min-height: 80px;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.3s ease;
+}
+
+.calendar-day:hover {
+    transform: scale(1.05);
+}
+
+/* Cor de fundo para o dia selecionado no calendário */
+.bg-selected {
+    background-color: #EBF4FF;
+}
+
+/* Nova classe para dias com agendamento (verde fraquinho) */
+.calendar-day.has-appointment {
+    background-color: #D1FAE5 !important; /* !important garante que esta regra tenha precedência */
+}
+
+/* Estilo para dias com agendamento no modo noturno */
+body.dark-mode .calendar-day.has-appointment {
+    background-color: #38a169 !important; /* Verde mais escuro para modo noturno */
+}
+
+/* Estilos para o modal (garante que ele cubra tudo, mas o nav está acima) */
+.modal-overlay {
+    z-index: 40; /* Abaixo da navbar (z-index: 50) */
+}
+
+/* Classes para cores dinâmicas dos botões e navbar */
+/* Essas variáveis CSS serão definidas e atualizadas pelo JavaScript */
+.bg-theme-primary { background-color: var(--theme-primary, #3B82F6); }
+.hover\:bg-theme-primary-dark:hover { background-color: var(--theme-primary-dark, #2563EB); }
+.text-theme-primary { color: var(--theme-primary, #3B82F6); }
+.border-theme-primary { border-color: var(--theme-primary, #3B82F6); }
+
+/* Classe para o marcador de agendamento no calendário */
+.bg-marker-color { background-color: var(--marker-color, #3B82F6); }

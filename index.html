@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Negócios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav id="navbar" class="bg-blue-600 p-4 shadow-md flex justify-between items-center text-white fixed top-0 w-full z-50">
+        <h1 id="app-title" class="text-xl font-bold">Gerenciador de Negócios</h1>
+        <div id="main-menu" class="hidden md:flex space-x-4">
+            <button onclick="showPage('calendar')" class="hover:text-gray-200">Início</button>
+            <button onclick="showPage('os')" class="hover:text-gray-200">OS</button>
+            <button onclick="showPage('clients')" class="hover:text-gray-200">Clientes</button>
+            <button onclick="showPage('services')" class="hover:text-gray-200">Serviços</button>
+            <button onclick="showPage('caixa')" class="hover:text-gray-200">Caixa</button>
+            <button onclick="showPage('relatorio')" class="hover:text-gray-200">Relatório</button>
+            <button onclick="showPage('configuracoes')" class="hover:text-gray-200">Configurações</button>
+        </div>
+        <button id="menu-toggle" class="md:hidden" onclick="toggleMobileMenu()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="bg-blue-600 w-full fixed top-16 left-0 shadow-lg p-4 flex-col space-y-2 hidden z-40">
+        <button onclick="showPage('calendar'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Início</button>
+        <button onclick="showPage('os'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">OS</button>
+        <button onclick="showPage('clients'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Clientes</button>
+        <button onclick="showPage('services'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Serviços</button>
+        <button onclick="showPage('caixa'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Caixa</button>
+        <button onclick="showPage('relatorio'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Relatório</button>
+        <button onclick="showPage('configuracoes'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Configurações</button>
+    </div>
+
+    <main id="app-container" class="flex-grow pt-28 p-4 md:p-8 overflow-y-auto">
+        </main>
+
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script type="module" src="js/db.js"></script>
+    <script type="module" src="js/globals.js"></script>
+    <script type="module" src="js/navigation.js"></script>
+    <script type="module" src="js/pages/calendar.js"></script>
+    <script type="module" src="js/pages/clients.js"></script>
+    <script type="module" src="js/pages/services.js"></script>
+    <script type="module" src="js/pages/os.js"></script>
+    <script type="module" src="js/pages/caixa.js"></script>
+    <script type="module" src="js/pages/relatorio.js"></script>
+    <script type="module" src="js/pages/configuracoes.js"></script>
+    <script type="module" src="js/init.js"></script>
+
+</body>
+</html>
