@@ -73,3 +73,4 @@ export async function loadCaixaEntries(listElement) {
 // Exporta funções para serem acessíveis globalmente via window
 window.addCaixaEntry = addCaixaEntry;
 window.loadCaixaEntries = loadCaixaEntries;
+    

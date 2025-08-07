@@ -10,12 +10,12 @@ import { renderCaixaPage } from './pages/caixa.js';
 import { renderRelatorioPage } from './pages/relatorio.js';
 import { renderConfiguracoesPage } from './pages/configuracoes.js';
 
-export function showPage(pageName) {
+export async function showPage(pageName) {
     updateCurrentPage(pageName);
-    renderPage();
+    await renderPage();
 }
 
-export function renderPage() {
+export async function renderPage() { // << CORRIGIDO: A função agora é 'async'
     const container = document.getElementById('app-container');
     if (!container) {
         console.error("Erro: #app-container não encontrado no DOM!");
@@ -24,31 +24,35 @@ export function renderPage() {
     }
     container.innerHTML = '';
     try {
+        let pageContent; // Variável para armazenar o conteúdo da página
         switch (currentPage) {
             case 'calendar':
-                container.appendChild(renderCalendarPage());
+                pageContent = await renderCalendarPage(); // << CORRIGIDO: Adicionado 'await'
                 break;
             case 'clients':
-                container.appendChild(renderClientsPage());
+                pageContent = await renderClientsPage();
                 break;
             case 'services':
-                container.appendChild(renderServicesPage());
+                pageContent = await renderServicesPage();
                 break;
             case 'os':
-                container.appendChild(renderOSPage());
+                pageContent = await renderOSPage();
                 break;
             case 'caixa':
-                container.appendChild(renderCaixaPage());
+                pageContent = await renderCaixaPage();
                 break;
             case 'relatorio':
-                container.appendChild(renderRelatorioPage());
+                pageContent = await renderRelatorioPage();
                 break;
             case 'configuracoes':
-                container.appendChild(renderConfiguracoesPage());
+                pageContent = await renderConfiguracoesPage();
                 break;
             default:
-                showPage('calendar');
-                break;
+                await showPage('calendar');
+                return; // Adicionado 'return' para evitar a execução do appendChild
+        }
+        if (pageContent) {
+            container.appendChild(pageContent);
         }
     } catch (error) {
         console.error("Erro ao renderizar página:", error);
@@ -61,6 +65,6 @@ export function toggleMobileMenu() {
     mobileMenu.classList.toggle('hidden');
 }
 
-// Torna as funções acessíveis globalmente para o HTML
+// Torna as funções acessíveis globalmente para o HTML (para os onclicks)
 window.showPage = showPage;
 window.toggleMobileMenu = toggleMobileMenu;

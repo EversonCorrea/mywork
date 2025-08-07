@@ -2,8 +2,9 @@
 // Lógica e renderização da página de Ordens de Serviço e seu modal
 
 import { db } from '../db.js';
-import { showPage } from '../navigation.js';
-import { loadAppointmentsForCalendar } from './calendar.js'; // Para atualizar o calendário
+import { showPage } from '../navigation.js'; // Esta função vem do navigation.js
+
+// ... (O código das funções renderOSPage, showOSModal, etc., permanece o mesmo) ...
 
 export function renderOSPage() {
     const page = document.createElement('div');
@@ -51,8 +52,8 @@ export async function showOSModal(preselectedYear = null, preselectedMonth = nul
                     ${clientOptions}
                 </select>
                 <div class="text-sm text-gray-500 text-right">
-                   <span class="mr-2">ou</span>
-                   <button onclick="window.showNewClientForm(this)" class="text-theme-primary hover:underline">Cadastrar Novo Cliente</button>
+                    <span class="mr-2">ou</span>
+                    <button onclick="window.showNewClientForm(this)" class="text-theme-primary hover:underline">Cadastrar Novo Cliente</button>
                 </div>
                 <div id="new-client-form" class="hidden mt-2 p-4 bg-gray-100 rounded-lg">
                     <input type="text" id="os-new-client-name" placeholder="Nome do Novo Cliente" class="w-full p-2 rounded-lg border mb-2">
@@ -63,8 +64,7 @@ export async function showOSModal(preselectedYear = null, preselectedMonth = nul
             <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">Serviços</label>
                 <div id="os-services-container" class="space-y-2 mb-2">
-                    <!-- Serviços serão adicionados aqui -->
-                </div>
+                    </div>
                 <button onclick="window.addServiceRow('${serviceOptions}')" class="bg-theme-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-theme-primary-dark">+ Adicionar Serviço</button>
             </div>
 
@@ -125,6 +125,7 @@ export function addServiceRow(serviceOptions) {
         <input type="number" placeholder="Preço" value="0" min="0" oninput="window.calculateOSValue()" class="w-24 p-2 rounded-lg border">
         <button onclick="window.removeServiceRow(this)" class="text-red-500 hover:text-red-700 transition duration-200">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
         </button>
     `;
     container.appendChild(newRow);
@@ -145,13 +146,13 @@ export function updateServicePrice(selectElement) {
     const textInput = selectElement.closest('.flex').querySelector('input[type="text"]');
     const priceInput = selectElement.closest('.flex').querySelector('input[type="number"]');
     
-    if (selectElement.value) { // Se um serviço foi selecionado do dropdown
+    if (selectElement.value) {
         priceInput.value = price;
         textInput.value = '';
-        textInput.disabled = true; // Desabilita o campo de texto manual
-    } else { // Se "Selecione um serviço" ou opção vazia
+        textInput.disabled = true;
+    } else {
         priceInput.value = 0;
-        textInput.disabled = false; // Habilita o campo de texto manual
+        textInput.disabled = false;
     }
     
     calculateOSValue();
@@ -285,6 +286,37 @@ export async function loadOS(listElement) {
         listElement.appendChild(li);
     }
 }
+
+// -----------------------------------------------------------
+// NOVAS FUNÇÕES ADICIONADAS
+// -----------------------------------------------------------
+
+export async function editOS(osId) {
+    console.log(`Função editOS chamada para a OS #${osId}. Lógica de edição deve ser implementada aqui.`);
+    // Implemente a lógica para carregar o modal de edição com os dados da OS
+}
+
+export async function handleEditOSSubmit(osId) {
+    console.log(`Função handleEditOSSubmit chamada para a OS #${osId}. Lógica de salvamento deve ser implementada aqui.`);
+    // Implemente a lógica para salvar as alterações da OS
+}
+
+export async function cancelOS(osId) {
+    if (confirm(`Tem certeza que deseja cancelar a Ordem de Serviço #${osId}?`)) {
+        try {
+            await db.ordens_de_servico.update(osId, { status_os: 'cancelado' });
+            alert(`Ordem de Serviço #${osId} cancelada com sucesso!`);
+            // Recarrega a página para mostrar a alteração
+            showPage('os');
+        } catch (error) {
+            alert('Erro ao cancelar a OS: ' + error.message);
+        }
+    }
+}
+
+// -----------------------------------------------------------
+// EXPORTS DAS FUNÇÕES PARA O ESCOPO GLOBAL 'window'
+// -----------------------------------------------------------
 
 window.showOSModal = showOSModal;
 window.showNewClientForm = showNewClientForm;

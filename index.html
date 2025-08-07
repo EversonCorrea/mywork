@@ -3,24 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyWork</title>
-    <!-- Carrega o Tailwind CSS para estilização responsiva -->
+    <title>Gerenciador de Negócios</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Carrega a folha de estilo customizada -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Barra de navegação principal (header) -->
-    <nav id="navbar" class="bg-blue-600 px-4 py-2 shadow-md flex flex-col justify-between items-center text-white fixed top-0 w-full z-50">
-        <div class="flex justify-between items-center w-full">
-            <h1 id="app-title" class="text-xl font-bold">MyWork</h1>
-            <!-- Botão de menu hamburguer para telas pequenas -->
-            <button id="menu-toggle" class="md:hidden" onclick="toggleMobileMenu()">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </div>
-        <div id="main-menu" class="hidden md:flex space-x-4 w-full justify-start py-4">
+    <nav id="navbar" class="bg-blue-600 p-4 shadow-md flex justify-between items-center text-white fixed top-0 w-full z-50">
+        <h1 id="app-title" class="text-xl font-bold">Gerenciador de Negócios</h1>
+        <div id="main-menu" class="hidden md:flex space-x-4">
             <button onclick="showPage('calendar')" class="hover:text-gray-200">Início</button>
             <button onclick="showPage('os')" class="hover:text-gray-200">OS</button>
             <button onclick="showPage('clients')" class="hover:text-gray-200">Clientes</button>
@@ -29,10 +20,12 @@
             <button onclick="showPage('relatorio')" class="hover:text-gray-200">Relatório</button>
             <button onclick="showPage('configuracoes')" class="hover:text-gray-200">Configurações</button>
         </div>
+        <button id="menu-toggle" class="md:hidden" onclick="toggleMobileMenu()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
     </nav>
 
-    <!-- Menu mobile (oculto por padrão em telas maiores) -->
-    <div id="mobile-menu" class="bg-blue-600 w-full fixed top-24 left-0 shadow-lg p-4 flex-col space-y-2 hidden z-40">
+    <div id="mobile-menu" class="bg-blue-600 w-full fixed top-16 left-0 shadow-lg p-4 flex-col space-y-2 hidden z-40">
         <button onclick="showPage('calendar'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Início</button>
         <button onclick="showPage('os'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">OS</button>
         <button onclick="showPage('clients'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Clientes</button>
@@ -42,12 +35,9 @@
         <button onclick="showPage('configuracoes'); toggleMobileMenu()" class="block text-left text-white hover:bg-blue-500 p-2 rounded w-full">Configurações</button>
     </div>
 
-    <!-- Conteúdo principal do aplicativo onde as páginas serão carregadas -->
-    <main id="app-container" class="flex-grow pt-40 p-4 md:p-8 overflow-y-auto">
-        <!-- As páginas serão injetadas aqui pelo JavaScript -->
-    </main>
+    <main id="app-container" class="flex-grow pt-28 p-4 md:p-8 overflow-y-auto">
+        </main>
 
-    <!-- Carrega as bibliotecas e scripts do aplicativo -->
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     <script type="module" src="js/db.js"></script>
     <script type="module" src="js/globals.js"></script>

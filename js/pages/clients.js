@@ -85,7 +85,7 @@ export async function deleteClient(id) {
     try {
         await db.clientes.delete(id);
         alert('Cliente excluído com sucesso!');
-        loadClients(document.getElementById('clients-list'));
+        loadClients(document.getElementById('clients-list')); // Recarrega a lista após a exclusão
     } catch (error) {
         alert('Erro ao excluir cliente: ' + error.message);
     }
