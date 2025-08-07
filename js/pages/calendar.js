@@ -5,30 +5,14 @@ import { db } from '../db.js';
 import { selectedDay, selectedMonth, selectedYear, updateSelectedDate } from '../globals.js';
 import { showOSModal } from './os.js';
 
-export async function renderCalendarPage() {
+export function renderCalendarPage() {
     const page = document.createElement('div');
     page.className = 'flex flex-col md:flex-row gap-6 h-full';
-    
-    // Obter agendamentos para o mês atual
-    const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
-    const startOfMonth = new Date(selectedYear, selectedMonth, 1).toISOString().slice(0, 10);
-    const endOfMonth = new Date(selectedYear, selectedMonth, daysInMonth).toISOString().slice(0, 10);
-
-    const osList = await db.ordens_de_servico.where('data_hora_os').between(startOfMonth, endOfMonth, true, true).toArray();
-    
-    const daysWithAppointments = new Set();
-    osList.forEach(os => {
-        if (os.status_os !== 'cancelado') {
-            const osDay = new Date(os.data_hora_os).getDate();
-            daysWithAppointments.add(osDay);
-        }
-    });
-
     page.innerHTML = `
         <div class="flex-grow bg-white p-6 rounded-xl shadow-lg">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-gray-800">Calendário - ${new Date(selectedYear, selectedMonth).toLocaleString('pt-BR', { month: 'long' })} ${selectedYear}</h2>
-                <button onclick="window.showOSModal(${selectedYear}, ${selectedMonth}, ${new Date().getDate()})" class="bg-theme-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-theme-primary-dark">Agendar OS</button>
+                <button onclick="window.showOSModal(${selectedYear}, ${selectedMonth}, selectedDay)" class="bg-theme-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-theme-primary-dark">Agendar OS</button>
             </div>
             <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center font-bold text-gray-600">
                 <div class="p-2">Dom</div>
@@ -48,6 +32,7 @@ export async function renderCalendarPage() {
 
     const calendarDays = page.querySelector('#calendar-days');
     const firstDayOfMonth = new Date(selectedYear, selectedMonth, 1).getDay();
+    const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
 
     for (let i = 0; i < firstDayOfMonth; i++) {
         const emptyDay = document.createElement('div');
@@ -55,17 +40,11 @@ export async function renderCalendarPage() {
         calendarDays.appendChild(emptyDay);
     }
     
-    // Looping para renderizar os dias do mês
     for (let day = 1; day <= daysInMonth; day++) {
         const dayDiv = document.createElement('div');
-        
-        // Adicione a classe 'has-appointment' se o dia tiver agendamentos
-        const hasAppointmentClass = daysWithAppointments.has(day) ? 'has-appointment bg-blue-100' : 'bg-gray-50';
-
-        dayDiv.className = `rounded-lg p-2 flex flex-col justify-between calendar-day transition-colors ${hasAppointmentClass}`;
+        dayDiv.className = 'bg-gray-50 rounded-lg p-2 flex flex-col justify-between calendar-day transition-colors';
         dayDiv.dataset.day = day;
         dayDiv.innerHTML = `<span class="font-bold text-gray-700">${day}</span>`;
-
         dayDiv.addEventListener('click', (e) => {
             const allDays = document.querySelectorAll('.calendar-day');
             allDays.forEach(d => d.classList.remove('bg-blue-100'));
@@ -76,16 +55,9 @@ export async function renderCalendarPage() {
         dayDiv.addEventListener('dblclick', () => showDayDetails(day, selectedMonth, selectedYear));
         calendarDays.appendChild(dayDiv);
     }
-
-    // A função loadAppointmentsForCalendar não é mais necessária aqui, pois a busca foi integrada
-    // renderDayLegend(selectedDay, selectedMonth, selectedYear);
-
+    loadAppointmentsForCalendar(selectedYear, selectedMonth);
     return page;
 }
-
-// As outras funções (loadAppointmentsForCalendar, renderDayLegend, showDayDetails)
-// permanecem as mesmas, mas ajustei renderCalendarPage para ter toda a lógica de renderização
-// e busca de agendamentos em um só lugar, tornando o código mais coeso.
 
 export async function loadAppointmentsForCalendar(year, month) {
     try {
@@ -158,4 +130,5 @@ export function showDayDetails(day, month, year) {
     alert(`Visualização completa do dia ${day}/${month + 1}/${year} (em construção!)`);
 }
 
+// Exporta showOSModal para ser acessível globalmente (para o onclick no HTML)
 window.showOSModal = showOSModal;

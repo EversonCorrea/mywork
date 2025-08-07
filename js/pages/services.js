@@ -2,6 +2,7 @@
 // Lógica e renderização da página de serviços
 
 import { db } from '../db.js';
+import { aplicarConfiguracoesSalvas } from './configuracoes.js'; // Para aplicar as cores do tema
 
 export function renderServicesPage() {
     const page = document.createElement('div');
@@ -14,7 +15,7 @@ export function renderServicesPage() {
             <input type="text" id="service-name" placeholder="Nome do Serviço" class="w-full p-2 mb-2 rounded-lg border">
             <input type="text" id="service-desc" placeholder="Descrição" class="w-full p-2 mb-2 rounded-lg border">
             <input type="number" id="service-price" placeholder="Preço" class="w-full p-2 mb-4 rounded-lg border">
-            <button onclick="window.addService()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Cadastrar</button>
+            <button onclick="window.addService()" class="bg-theme-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-theme-primary-dark">Cadastrar</button>
         </div>
         <div>
             <h3 class="text-xl font-semibold mb-2">Serviços Cadastrados</h3>

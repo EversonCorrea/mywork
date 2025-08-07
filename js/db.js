@@ -8,9 +8,9 @@ db.version(1).stores({
     clientes: '++id, nome, telefone, email, observacoes, data_cadastro',
     servicos: '++id, nome, descricao, preco',
     agendamentos: '++id, id_cliente, id_servico, data_hora_inicio, data_hora_fim, status',
-    ordens_de_servico: '++id, id_agendamento, id_cliente, valor_total, servicos_realizados, data_hora_os, status_os', // Adicionado status_os
+    ordens_de_servico: '++id, id_agendamento, id_cliente, valor_total, servicos_realizados, data_hora_os, status_os',
     caixa_diario: '++id, data, entrada, saida',
-    configuracoes: 'key, value' // Nova tabela para configurações
+    configuracoes: 'key, value'
 });
 
 db.open().catch(function (e) {

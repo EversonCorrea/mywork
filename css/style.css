@@ -10,6 +10,7 @@ body.dark-mode {
     color: #e2e8f0; /* Cor do texto clara */
 }
 
+/* Reverte a cor do texto para claro em modo noturno */
 body.dark-mode .bg-white {
     background-color: #2d3748; /* Fundo de cards escuro */
     color: #e2e8f0;
@@ -42,7 +43,7 @@ body.dark-mode .border {
     min-width: 80px;
     min-height: 80px;
     cursor: pointer;
-    transition: transform 0.1s ease, background-color 0.3s ease;
+    transition: transform 0.1s ease, background-color 0.3s ease; /* Adicionado transição para bg */
 }
 
 .calendar-day:hover {
@@ -55,13 +56,12 @@ body.dark-mode .border {
 }
 
 /* Nova classe para dias com agendamento (verde fraquinho) */
-.calendar-day.has-appointment {
-    background-color: #D1FAE5 !important; /* !important garante que esta regra tenha precedência */
+.has-appointment {
+    background-color: #D1FAE5; /* Um verde bem claro */
 }
 
-/* Estilo para dias com agendamento no modo noturno */
-body.dark-mode .calendar-day.has-appointment {
-    background-color: #38a169 !important; /* Verde mais escuro para modo noturno */
+body.dark-mode .has-appointment {
+    background-color: #38a169; /* Verde mais escuro para modo noturno */
 }
 
 /* Estilos para o modal (garante que ele cubra tudo, mas o nav está acima) */

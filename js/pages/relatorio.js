@@ -38,15 +38,20 @@ export async function loadRelatorioData(contentElement, startDate, endDate) {
     let totalRevenueOS = 0;
     const serviceCount = {};
     const clientVisits = {};
+    let totalOSConcluidas = 0;
+    let totalOSCanceladas = 0;
 
     osList.forEach(os => {
         if (os.status_os !== 'cancelado') {
             totalRevenueOS += os.valor_total;
+            totalOSConcluidas++;
             const realizados = JSON.parse(os.servicos_realizados);
             realizados.forEach(service => {
                 serviceCount[service.name] = (serviceCount[service.name] || 0) + 1;
             });
             clientVisits[os.id_cliente] = (clientVisits[os.id_cliente] || 0) + 1;
+        } else {
+            totalOSCanceladas++;
         }
     });
 
